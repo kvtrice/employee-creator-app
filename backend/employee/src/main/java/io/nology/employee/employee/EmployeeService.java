@@ -19,7 +19,17 @@ public class EmployeeService {
         employee.setLastName(employeeData.getLastName());
         employee.setEmail(employeeData.getEmail());
         employee.setMiddleName(employeeData.getMiddleName());
-        employee.setMobileNumber(employeeData.getMobileNumber());
+        employee.setMobile(employeeData.getMobile());
+        employee.setAddressLine1(employeeData.getAddressLine1());
+
+        if (employeeData.getAddressLine2() != null) {
+            employee.setAddressLine2(employeeData.getAddressLine2());
+        }
+
+        employee.setSuburb(employeeData.getSuburb());
+        employee.setState(employeeData.getState());
+        employee.setPostcode(employeeData.getPostcode());
+        employee.setIsPermanent(employeeData.getIsPermanent());
 
         return this.repo.save(employee);
     }
@@ -31,5 +41,5 @@ public class EmployeeService {
     public Optional<Employee> getEmployeeById(Long id) {
         return this.repo.findById(id);
     }
-    
+
 }

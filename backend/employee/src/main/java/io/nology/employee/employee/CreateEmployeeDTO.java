@@ -1,5 +1,7 @@
 package io.nology.employee.employee;
 
+import java.util.Date;
+
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.validation.constraints.NotBlank;
@@ -20,10 +22,38 @@ public class CreateEmployeeDTO {
     private String email;
 
     @NotNull
-    private String mobileNumber;
+    private String mobile;
+
+    @NotBlank
+    private String addressLine1;
+
+    private String addressLine2;
+
+    @NotBlank
+    private String suburb;
+
+    @NotBlank
+    private String state;
+
+    @NotBlank
+    private String postcode;
+
+    @NotBlank
+    private boolean isPermanent;
+
+    @NotBlank
+    private Date startDate;
+
+    public Date getStartDate() {
+        return startDate;
+    }
 
     public String getFirstName() {
         return firstName;
+    }
+
+    public String getMiddleName() {
+        return middleName;
     }
 
     public String getLastName() {
@@ -34,11 +64,32 @@ public class CreateEmployeeDTO {
         return email;
     }
 
-    public String getMobileNumber() {
-        return mobileNumber;
+    public String getMobile() {
+        return mobile;
     }
 
-    public String getMiddleName() {
-        return middleName;
+    public String getAddressLine1() {
+        return addressLine1;
     }
+
+    public String getAddressLine2() {
+        return addressLine2;
+    }
+
+    public String getSuburb() {
+        return suburb;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public boolean getIsPermanent() {
+        return isPermanent;
+    }   
+
 }
