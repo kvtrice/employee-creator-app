@@ -13,7 +13,7 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository repo;
 
-    public Employee createEmployee(@Valid CreateOrUpdateEmployeeDTO employeeData) {
+    public Employee createEmployee(@Valid CreateEmployeeDTO employeeData) {
         Employee employee = new Employee();
         employee.setFirstName(employeeData.getFirstName());
         employee.setLastName(employeeData.getLastName());
@@ -30,6 +30,7 @@ public class EmployeeService {
         employee.setState(employeeData.getState());
         employee.setPostcode(employeeData.getPostcode());
         employee.setIsPermanent(employeeData.getIsPermanent());
+        employee.setStartDate(employeeData.getStartDate());
 
         return this.repo.save(employee);
     }
@@ -42,7 +43,7 @@ public class EmployeeService {
         return this.repo.findById(id);
     }
 
-    public Optional<Employee> updateEmployeeById(Long id, @Valid CreateOrUpdateEmployeeDTO employeeData) {
+    public Optional<Employee> updateEmployeeById(Long id, @Valid UpdateEmployeeDTO employeeData) {
         Optional<Employee> employee = this.getEmployeeById(id);
         if (employee.isEmpty()) {
             return employee;
@@ -90,7 +91,7 @@ public class EmployeeService {
             foundEmployee.setPostcode(employeeData.getPostcode());
         }
 
-        if (employeeData.getIsPermanent()) {
+        if (employeeData.getIsPermanent() != null) {
             foundEmployee.setIsPermanent(employeeData.getIsPermanent());
         }
 
@@ -99,6 +100,19 @@ public class EmployeeService {
         }
 
         return Optional.of(this.repo.save(foundEmployee));
+    }
+
+    public Optional<Employee> deleteEmployeeById(Long id) {
+        Optional<Employee> employee = this.getEmployeeById(id);
+
+        if (employee.isEmpty()) {
+            return employee;
+        }
+
+        Employee foundEmployee = employee.get();
+        this.repo.delete(foundEmployee);
+
+        return employee;
     }
 
 }

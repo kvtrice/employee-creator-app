@@ -1,18 +1,21 @@
 package io.nology.employee.employee;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
-public class CreateOrUpdateEmployeeDTO {
+public class CreateEmployeeDTO {
     @NotBlank
     @Length(min = 2, max = 50)
     private String firstName;
 
-    private String middleName;
+    private String middleName = null;
 
     @NotNull
     @Length(min = 2, max = 50)
@@ -27,24 +30,26 @@ public class CreateOrUpdateEmployeeDTO {
     @NotBlank
     private String addressLine1;
 
-    private String addressLine2;
+    private String addressLine2 = null;
 
     @NotBlank
     private String suburb;
 
-    @NotBlank
-    private String state;
+    @NotNull
+    private AddressStateCode state;
 
     @NotBlank
+    @Pattern(regexp = "^[0-9]{4}$")
     private String postcode;
 
-    @NotBlank
-    private boolean isPermanent;
+    @NotNull
+    private Boolean isPermanent;
 
-    @NotBlank
-    private Date startDate;
+    @NotNull
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDate startDate;
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
@@ -80,7 +85,7 @@ public class CreateOrUpdateEmployeeDTO {
         return suburb;
     }
 
-    public String getState() {
+    public AddressStateCode getState() {
         return state;
     }
 
@@ -88,8 +93,8 @@ public class CreateOrUpdateEmployeeDTO {
         return postcode;
     }
 
-    public boolean getIsPermanent() {
+    public Boolean getIsPermanent() {
         return isPermanent;
-    }   
+    }
 
 }
